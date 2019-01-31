@@ -36,6 +36,9 @@
     
 
     var game = new Phaser.Game(config);
+    var platforms;
+    var score =0;
+    var scoreText;
 
     function preload ()
     {
@@ -46,10 +49,16 @@
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
-    var platforms;
+   
 
     function create ()
     {
+        bombs= this.physics.add.group();
+        this.physics.add.collider(bombs, platforms);
+        this.physics.add.colider(player, bombs, hitBob, null, this);
+
+        scoreText = this.add.text(16, 16 'score:0', {fontSize:'32px', fill: '#000'});
+
         stars = this.physics.add.group({
             key:'star'
             repeat 11,
@@ -101,9 +110,33 @@
         platforms.create(750, 220, 'ground');
 
     }
+    funciton hitBomb(player, bomb)
+    {
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('turn');
+        gameOver = true;
+    }
+
     function collectStar(player, star)
     {
         star.disableBody(true, true);
+
+        score+= 10;
+        scoreText.setText('Score:' +score);
+
+        if (stars.countActive(true)===0)
+        {
+            stars.children.iterate(function(child){
+                child.enableBody(true, child.x, 0, true,true);
+            });
+            var x =(player.x<400) ?Phaser.Math.Between(400, 800) :Phaser.Math.Between(0, 400);
+            var bomb= boms.create(x, 16, 'bomb');
+            bomb.setBounce(1);
+            bomb.setCollideWorldBounds(true);
+            bomb.setVelocity(Phaser.Math.between(-200,200), 20);
+
+        }
     }
 
     function update ()
