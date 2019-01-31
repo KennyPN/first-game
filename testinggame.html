@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-    <title>Making your first Phaser 3 Game - Part 1</title>
+    <title>Platforming Game</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
@@ -35,7 +35,7 @@
 
     
 
-    var game = new Phaser.Game(config);
+    
     var platforms;
     var score =0;
     var scoreText;
@@ -44,6 +44,7 @@
     var bombs;
     var gameOver = false;
     var cursors;
+    var game = new Phaser.Game(config);
 
     function preload ()
     {
@@ -102,6 +103,7 @@
 
 
         this.add.image(400, 300, 'sky');
+
         this.physics.add.collider(player, platforms);
         this.physics.add.collider(stars, platforms);
         this.physics.add.overlap(player, stars, collectStar, null, this);
