@@ -50,6 +50,17 @@
 
     function create ()
     {
+        stars = this.physics.add.group({
+            key:'star'
+            repeat 11,
+            setXY:{ x:12, y:0, sepX: 70}
+        })
+
+        stars.children.iterate(function(child){
+            child.setBounceY(Phaser.Math.FloatBeteen(0.4, 0.8));
+        });
+
+
         player = this.physics.add.sprite(100, 450, 'dude');
 
         player.setBounce(0.2);
@@ -78,6 +89,8 @@
 
         this.add.image(400, 300, 'sky');
         this.physics.add.collider(player, platforms);
+        this.physics.add.collider(stars, platforms);
+        this.physics.add.overlap(player, stars, collectStar, null, this);
 
         platforms = this.physics.add.staticGroup();
 
@@ -87,6 +100,10 @@
         platforms.create(50, 250, 'ground');
         platforms.create(750, 220, 'ground');
 
+    }
+    function collectStar(player, star)
+    {
+        star.disableBody(true, true);
     }
 
     function update ()
