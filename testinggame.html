@@ -3,7 +3,7 @@
 <head> 
     <meta charset="UTF-8" />
     <title>Platforming Game</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+   <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -18,13 +18,13 @@
         type: Phaser.AUTO,
         width: 800,
         height: 600,
-        physics:{
+       /* physics:{
             default:'arcade',
             arcade:{
                 gravity:{y:300},
                 debug:false
         }
-            },
+     },*/
             
         scene: {
             preload: preload,
@@ -36,14 +36,14 @@
     
 
     
-    var platforms;
+   /* var platforms;
     var score =0;
     var scoreText;
     var player;
     var stars;
     var bombs;
     var gameOver = false;
-    var cursors;
+    var cursors; */
     var game = new Phaser.Game(config);
 
     function preload ()
@@ -55,9 +55,17 @@
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
-   
+   function create()
+   {
 
-    function create ()
+   }
+
+   function update()
+   {
+
+   }
+
+   /* function create ()
     {
         bombs= this.physics.add.group();
         this.physics.add.collider(bombs, platforms);
@@ -117,6 +125,7 @@
         platforms.create(750, 220, 'ground');
 
     }
+
     funciton hitBomb(player, bomb)
     {
         this.physics.pause();
